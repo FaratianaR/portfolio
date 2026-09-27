@@ -44,7 +44,20 @@ Les témoignages fictifs en lorem ipsum du prototype sont volontairement exclus.
 
 Le formulaire prépare un lien `mailto:` et ouvre la messagerie du visiteur. Il n’envoie rien automatiquement et n’enregistre pas les données. Un lien e-mail direct reste disponible. Un véritable envoi depuis le site nécessiterait plus tard un service de formulaire ou une fonction Cloudflare.
 
-## Déployer sur Cloudflare Pages plus tard
+## Déployer sur Cloudflare Workers
+
+Le fichier `wrangler.json` configure le Worker `faratiana-digital`, sa date de compatibilité et les fichiers statiques dans `dist/`.
+
+Dans Cloudflare Workers Builds :
+
+- Commande de compilation : `npm run build`
+- Commande de déploiement : `npx wrangler deploy`
+
+L’installation automatique utilise pnpm 10.11.1, fixé dans `package.json`. Définir `SITE_URL` avec l’URL publique définitive pour les URL canoniques. La page `404.html` générée par Astro sera utilisée pour les adresses inexistantes.
+
+Pour publier manuellement depuis le terminal : `npm run build`, puis `npx wrangler deploy` (connexion Cloudflare requise).
+
+## Alternative : Cloudflare Pages
 
 1. Créer un dépôt Git et y pousser le projet.
 2. Relier le dépôt à Cloudflare Pages.
