@@ -1,0 +1,7 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { certifications } from '../data/certifications';
+const categories = [...new Set(certifications.map(c => c[3]))];
+---
+<Layout title="Certifications"><section class="page-hero"><div class="container"><p class="eyebrow">Certifications</p><h1>Des compétences validées<br />et mises à jour.</h1></div></section><section class="section"><div class="container"><div class="filters" aria-label="Filtrer les certifications" data-filters><button class="filter" data-filter="all" aria-pressed="true">Toutes</button>{categories.map(category => <button class="filter" data-filter={category} aria-pressed="false">{category}</button>)}</div><p class="filter-status" aria-live="polite" data-filter-status>{certifications.length} certifications</p><div class="cert-grid" data-filter-items>{certifications.map(([year,title,issuer,category]) => <article class="cert-card" data-category={category}><div class="cert-top"><span aria-hidden="true">✧</span><span>{year}</span></div><h2>{title}</h2><p>{issuer}</p><span class="tag">{category}</span></article>)}</div></div></section></Layout>
+<script>import '../scripts/filters';</script>

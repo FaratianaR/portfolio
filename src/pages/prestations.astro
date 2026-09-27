@@ -1,0 +1,6 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTA from '../components/CTA.astro';
+import { services, steps } from '../data/site';
+---
+<Layout title="Mes prestations"><section class="page-hero"><div class="container"><p class="eyebrow">Mes prestations</p><h1>Concevoir, construire,<br />piloter et optimiser.</h1><p>Un accompagnement transversal pour transformer vos besoins en solutions digitales concrètes, utiles et durables.</p></div></section><section class="section"><div class="container cards-grid">{services.map(([title,description,details],i) => <article class="service-card"><span class="card-number">0{i+1}</span><h2 style="font-size:1.3rem">{title}</h2><p>{description}</p><p class="service-details">{details}</p><a class="text-link" style="margin-top:24px" href={`/hire-me/?service=${encodeURIComponent(title)}`}>Parlons de votre besoin ↗</a></article>)}</div></section><section class="section process"><div class="container"><p class="eyebrow">Une méthode claire</p><h2>De l’idée au lancement.<br />Et après.</h2><div class="process-grid">{steps.map(([title,description],i) => <article><span class="card-number">0{i+1}</span><h3>{title}</h3><p>{description}</p></article>)}</div></div></section><CTA /></Layout>

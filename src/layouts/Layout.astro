@@ -1,0 +1,47 @@
+---
+import '@fontsource/manrope/400.css';
+import '@fontsource/manrope/600.css';
+import '@fontsource/manrope/700.css';
+import '@fontsource/sora/600.css';
+import '../styles/global.css';
+import { navigation, email } from '../data/site';
+interface Props { title?: string; description?: string; article?: boolean; }
+const { title = 'Digital Projects & Web Operations', description = 'Faratiana Rahary : création web, SEO, e-commerce et opérations digitales. Des solutions concrètes, de la conception à l’amélioration continue.', article = false } = Astro.props;
+const pathname = Astro.url.pathname;
+const canonical = Astro.site ? new URL(pathname, Astro.site) : undefined;
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} — Faratiana Rahary</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#fff5e8" />
+    <meta property="og:title" content={`${title} — Faratiana Rahary`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:locale" content="fr_FR" />
+    {canonical && <><link rel="canonical" href={canonical} /><meta property="og:url" content={canonical} /></>}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label="Faratiana Rahary — Accueil"><strong>Faratiana Rahary<span>.</span></strong><span class="brand-sub">Digital Projects & Web Operations</span></a>
+        <nav class="desktop-nav" aria-label="Navigation principale">
+          {navigation.map(([href, label]) => <a href={href} aria-current={(href === '/' ? pathname === '/' : pathname.startsWith(href)) ? 'page' : undefined}>{label}</a>)}
+        </nav>
+        <a class="button header-cta" href="/hire-me/">Parlons-en <span aria-hidden="true">↗</span></a>
+        <details class="mobile-nav"><summary>Menu <span aria-hidden="true">☰</span></summary><nav aria-label="Navigation mobile">{navigation.map(([href,label]) => <a href={href}>{label}</a>)}<a href="/hire-me/">Contact</a></nav></details>
+      </div>
+    </header>
+    <main id="contenu"><slot /></main>
+    <footer class="site-footer"><div class="container footer-grid">
+      <div><a class="brand" href="/"><strong>Faratiana Rahary<span>.</span></strong></a><p>Digital Projects & Web Operations</p><p class="muted">Des idées claires.<br />Des solutions qui prennent vie.</p></div>
+      <div><p class="eyebrow">Navigation</p><div class="footer-links">{navigation.map(([href,label]) => <a href={href}>{label}</a>)}</div></div>
+      <div><p class="eyebrow">Restons en contact</p><a class="email-link" href={`mailto:${email}`}>{email} ↗</a><p><a href="/documents/">Demander le CV ou le portfolio</a></p><p class="muted">Projets en français et en anglais</p></div>
+    </div><div class="container copyright">© {new Date().getFullYear()} Faratiana Rahary <span>Conçu avec soin, construit avec Astro.</span></div></footer>
+  </body>
+</html>

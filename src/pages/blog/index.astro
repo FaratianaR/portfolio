@@ -1,0 +1,9 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog', ({data}) => !data.draft)).sort((a,b) => b.data.date.valueOf()-a.data.date.valueOf());
+const categories = [...new Set(posts.map(p => p.data.category))];
+---
+<Layout title="Le carnet digital — Blog" description="Notes et méthodes autour du web, du SEO et des projets digitaux."><section class="page-hero"><div class="container"><p class="eyebrow">Le carnet digital</p><h1>Idées, méthodes<br />& inspirations.</h1><p>Un espace pour partager des réflexions et des conseils autour du web, du SEO et des projets digitaux.</p></div></section><section class="section"><div class="container"><div class="filters" aria-label="Filtrer les articles" data-filters><button class="filter" data-filter="all" aria-pressed="true">Tous les articles</button>{categories.map(category => <button class="filter" data-filter={category} aria-pressed="false">{category}</button>)}</div><p class="filter-status" aria-live="polite" data-filter-status>{posts.length} articles</p><div class="posts-grid" data-filter-items>{posts.map(post => <PostCard post={post} />)}</div></div></section></Layout>
+<script>import '../../scripts/filters';</script>
