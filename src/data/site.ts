@@ -9,7 +9,7 @@ export const services = [
   ['E-commerce', "Structurer et optimiser une boutique en ligne pour faciliter la découverte des produits et l’achat.", 'Shopify · Catalogue produits · Parcours d’achat · Optimisation'],
   ['Digital Project & Web Operations', 'Faire le lien entre besoins business et solutions digitales, puis assurer un suivi opérationnel fiable.', 'Cadrage · Coordination · Domaines & DNS · Suivi opérationnel'],
   ['UX/UI & optimisation', 'Rendre les sites plus clairs, plus fluides et plus efficaces pour leurs utilisateurs.', 'Parcours utilisateurs · Wireframes · Design · Amélioration continue'],
-  ['IA & automatisation', 'Intégrer l’IA dans les workflows pour gagner en rapidité, tout en gardant l’analyse et les décisions au centre.', 'Prototypage · Workflows · Documentation · Automatisation'],
+  ['Gestion & optimisation de sites', 'Assurer le suivi, la maintenance fonctionnelle et l’amélioration continue de vos sites : contenus, mises à jour, intégrations, DNS, parcours utilisateur, qualité et performance.', 'Maintenance fonctionnelle · Mises à jour · Intégrations & DNS · Qualité & performance'],
 ];
 export const steps = [
   ['Comprendre', 'Besoin, utilisateurs et objectifs business.'],
