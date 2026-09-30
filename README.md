@@ -67,3 +67,9 @@ Pour publier manuellement depuis le terminal : `npm run build`, puis `npx wrangl
 Si l’environnement ne fournit pas pnpm, utiliser npm pour installer et compiler, ou activer pnpm dans l’environnement de build. Ne pas mélanger les gestionnaires de paquets dans un même environnement.
 
 Le dossier `dist/` contient uniquement des fichiers statiques et peut aussi être téléversé directement. Aucun adaptateur Cloudflare, serveur, base de données ni secret n’est nécessaire. Le projet n’a pas été publié.
+
+### Certifications et liens de vérification
+
+Ajouter une certification dans `src/data/certifications.ts` avec ses champs `year`, `title`, `issuer` et `category`. L’ordre du tableau détermine l’ordre d’affichage. La page affiche six cartes, puis six de plus à chaque clic. Changer de catégorie réinitialise l’affichage à six résultats.
+
+Ajouter le champ facultatif `credentialUrl` avec l’URL officielle complète du certificat quand elle est disponible. Une URL HTTP(S) valide rend la carte cliquable, avec ouverture dans un nouvel onglet. En l’absence d’URL (ou si elle est invalide), aucun lien n’est affiché. Aucune URL fictive n’est fournie.

@@ -1,0 +1,19 @@
+---
+import type { Certification } from '../data/certifications';
+interface Props { certification: Certification; hidden?: boolean; }
+const { certification, hidden = false } = Astro.props;
+const { year, title, issuer, category, credentialUrl } = certification;
+let url: string | undefined;
+if (credentialUrl?.trim()) {
+  try {
+    const parsed = new URL(credentialUrl.trim());
+    if (['https:', 'http:'].includes(parsed.protocol)) url = parsed.href;
+  } catch { /* Missing or invalid credentials remain plain cards. */ }
+}
+---
+<article class:list={['cert-card', { 'cert-card-linked': !!url }]} data-category={category} hidden={hidden} tabindex="-1">
+  <div class="cert-top"><span aria-hidden="true">✧</span><span>{year}</span></div>
+  <h2>{url ? <a class="cert-title-link" href={url} target="_blank" rel="noopener noreferrer">{title}<span class="sr-only"> — ouvrir le certificat dans un nouvel onglet</span></a> : title}</h2>
+  <p>{issuer}</p><span class="tag">{category}</span>
+  {url && <span class="cert-verify" aria-hidden="true">Voir le certificat ↗</span>}
+</article>

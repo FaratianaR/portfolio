@@ -20,11 +20,12 @@ export const steps = [
   ['Améliorer', 'Support, données, retours utilisateurs et optimisation continue.'],
 ];
 export const stats = [
-  ['+1 000', 'Articles optimisés SEO publiés', 'Contenus rédigés et publiés en français'],
-  ['+1 000', 'Backlinks Dofollow créés', 'Avec du contenu en anglais — Boarding, États-Unis'],
-  ['+150', 'Problèmes SEO résolus', 'Corrections techniques et on-page'],
-  ['40 %', 'Trafic organique en 3 mois', 'Progression documentée sur un projet SEO spécifique'],
-  ['4×', 'Championne de Madagascar d’échecs', 'Titre international Woman FIDE Master (WFM)'],
+  ['10+ ans', 'En marketing digital', 'Stratégie de contenu, coordination d’équipes et pilotage de projets digitaux.'],
+  ['1 000+', 'Articles web rédigés', 'Une expérience de terrain pour évaluer la qualité des contenus, suivre leur production et veiller à leur cohérence avec les objectifs business et SEO.'],
+  ['20+', 'Clients accompagnés', 'Des projets variés et complexes, menés à distance du cadrage à la réalisation.'],
+  ['150+', 'Problèmes digitaux résolus', 'Identifier les blocages et apporter des solutions à des problèmes techniques digitaux variés.'],
+  ['20+', 'Sites web créés', 'Sites vitrines, e-commerce et blogs : une capacité d’adaptation aux CMS, aux outils no-code et aux technologies propres à chaque projet.'],
+  ['4 titres', 'De championne nationale d’échecs', 'Également titulaire du titre international Woman FIDE Master : analyse, anticipation et résolution de problèmes au quotidien.'],
 ];
 export const tools = [
   ['Web & Apps', 'Lovable · WordPress · Shopify · HTML/CSS'],
