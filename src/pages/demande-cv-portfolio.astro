@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { email } from '../data/site';
+const formId = import.meta.env.PUBLIC_FORMSPREE_CV_FORM_ID?.trim();
+const endpoint = formId && /^[a-zA-Z0-9]+$/.test(formId) ? `https://formspree.io/f/${formId}` : undefined;
+---
+<Layout title="Demander le CV ou le portfolio">
+  <section class="page-hero"><div class="container">
+    <p class="eyebrow">Mon parcours en détail</p>
+    <h1>Demander le CV<br />ou le portfolio.</h1>
+    <p>Choisissez les documents que vous souhaitez recevoir et précisez, si vous le voulez, le contexte de votre demande.</p>
+  </div></section>
+  <section class="section"><div class="container split">
+    <div><h2>Faisons connaissance.</h2>
+      <p>Un recrutement, une collaboration ou un projet à explorer ? Je vous répondrai personnellement avec les documents demandés.</p>
+      <p>Vous pouvez aussi m’écrire directement :</p>
+      <a class="text-link email-link" href={`mailto:${email}`}>{email} ↗</a>
+    </div>
+    <form class="contact-form" id="document-request" action={endpoint} method="POST" data-endpoint={endpoint}>
+      <label>Nom et prénom<input name="name" autocomplete="name" required maxlength="100" /></label>
+      <label>Adresse e-mail<input name="email" type="email" autocomplete="email" required maxlength="254" /></label>
+      <label>Société / organisation (facultatif)<input name="organisation" autocomplete="organization" maxlength="150" /></label>
+      <label>Objet de la demande<select name="documents" required><option value="CV">CV</option><option value="Portfolio">Portfolio</option><option value="CV + Portfolio">CV + Portfolio</option></select></label>
+      <label>Message ou précision (facultatif)<textarea name="message" maxlength="4000"></textarea></label>
+      <input type="hidden" name="_subject" value="Demande de CV / portfolio — Faratiana Digital" />
+      <div hidden aria-hidden="true"><input name="_gotcha" tabindex="-1" autocomplete="off" /></div>
+      <p class="form-note">Vos informations seront utilisées pour répondre à votre demande. L’envoi est traité par Formspree.</p>
+      {!endpoint && <p class="form-note">L’envoi depuis ce formulaire n’est pas encore disponible. Vous pouvez faire votre demande à l’adresse e-mail ci-contre.</p>}
+      <button class="button dark" type="submit" disabled={!endpoint}>Envoyer ma demande</button>
+      <p id="request-status" class="form-note" role="status" aria-live="polite" tabindex="-1"></p>
+      <noscript><p class="form-note">Après envoi, la confirmation s’affichera sur la page du service de formulaire.</p></noscript>
+    </form>
+  </div></section>
+</Layout>
+<style>
+  .split > * { min-width: 0; }
+  button:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+</style>
+<script>
+  const form = document.querySelector<HTMLFormElement>('#document-request');
+  const status = document.querySelector<HTMLElement>('#request-status');
+  const button = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  let pending = false;
+  form?.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!status || !button || pending || !form.reportValidity()) return;
+    if (!form.dataset.endpoint) {
+      status.textContent = 'L’envoi est indisponible. Merci de me contacter par e-mail.';
+      return;
+    }
+    pending = true;
+    button.disabled = true;
+    button.textContent = 'Envoi en cours…';
+    form.setAttribute('aria-busy', 'true');
+    status.textContent = '';
+    try {
+      const response = await fetch(form.dataset.endpoint, {
+        method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' },
+        signal: AbortSignal.timeout(20000),
+      });
+      if (!response.ok) throw new Error('Submission failed');
+      status.textContent = 'Merci pour votre demande. Je vous répondrai dans les meilleurs délais.';
+      form.reset();
+    } catch {
+      status.textContent = 'L’envoi n’a pas pu être confirmé. Vos informations ont été conservées. Réessayez ou contactez-moi directement par e-mail.';
+    } finally {
+      pending = false;
+      button.disabled = false;
+      button.textContent = 'Envoyer ma demande';
+      form.removeAttribute('aria-busy');
+      status.focus();
+    }
+  });
+</script>

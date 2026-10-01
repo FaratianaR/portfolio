@@ -46,7 +46,7 @@ Le formulaire prépare un lien `mailto:` et ouvre la messagerie du visiteur. Il 
 
 ## Déployer sur Cloudflare Workers
 
-Le fichier `wrangler.json` configure le Worker `faratiana-digital`, sa date de compatibilité et les fichiers statiques dans `dist/`.
+Le fichier `wrangler.json` configure le Worker `digital`, sa date de compatibilité et les fichiers statiques dans `dist/`.
 
 Dans Cloudflare Workers Builds :
 
@@ -73,3 +73,16 @@ Le dossier `dist/` contient uniquement des fichiers statiques et peut aussi êtr
 Ajouter une certification dans `src/data/certifications.ts` avec ses champs `year`, `title`, `issuer` et `category`. L’ordre du tableau détermine l’ordre d’affichage. La page affiche six cartes, puis six de plus à chaque clic. Changer de catégorie réinitialise l’affichage à six résultats.
 
 Ajouter le champ facultatif `credentialUrl` avec l’URL officielle complète du certificat quand elle est disponible. Une URL HTTP(S) valide rend la carte cliquable, avec ouverture dans un nouvel onglet. En l’absence d’URL (ou si elle est invalide), aucun lien n’est affiché. Aucune URL fictive n’est fournie.
+
+## Demandes de CV / portfolio
+
+Page : `/demande-cv-portfolio/`. Le formulaire de contact existant conserve son fonctionnement mailto.
+
+Activation de l’envoi :
+1. Créer un formulaire dans Formspree et définir `faratianarahary@gmail.com` comme destinataire ; valider cette adresse selon les instructions du service.
+2. Copier son identifiant depuis Integration (la partie après `/f/` de son URL).
+3. Définir `PUBLIC_FORMSPREE_CV_FORM_ID` dans un fichier `.env` local et dans les variables de build Cloudflare. Cet identifiant est public, ne pas y mettre de clé secrète.
+4. Reconstruire et redéployer. Sans identifiant valide, le bouton reste désactivé et un contact e-mail est proposé.
+5. Envoyer une demande test et confirmer sa réception dans Gmail (y compris les indésirables). Un HTTP réussi confirme l’acceptation par Formspree, pas la réception en boîte mail.
+
+URL publique : https://digital.faratianarahary.workers.dev/ . Si `SITE_URL` existe dans Cloudflare, le mettre à jour également car il remplace la valeur par défaut.
