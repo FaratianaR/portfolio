@@ -11,9 +11,9 @@ import { email } from '../data/site';
   <section class="section"><div class="container split">
     <div><h2>Faisons connaissance.</h2>
       <p>Un recrutement, une collaboration ou un projet à explorer ? Je vous répondrai personnellement avec les documents demandés.</p>
-      <p>Vous pouvez aussi m’écrire directement :</p>
-      <a class="text-link email-link" href={`mailto:${email}`}>{email} ↗</a>
+      <p>Depuis une autre messagerie, vous pouvez écrire à cette adresse :</p>
+      <a class="text-link email-link" href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`} target="_blank" rel="noopener noreferrer">{email} ↗</a>
     </div>
-    <div class="contact-panel"><h2>Quels documents souhaitez-vous ?</h2><p>Un clic ouvre votre messagerie avec l’objet de la demande déjà renseigné.</p><div class="actions">{['CV', 'Portfolio', 'CV + Portfolio'].map(document => <a class="button dark" href={`mailto:${email}?subject=${encodeURIComponent('Demande : ' + document)}`}>{document} ↗</a>)}</div><p style="margin-top:24px">Vous préférez échanger sur WhatsApp ?</p><a class="button outline" href="https://wa.me/261329659478" target="_blank" rel="noopener noreferrer">Discuter sur WhatsApp ↗<span class="sr-only"> — nouvel onglet</span></a></div>
+    <div class="contact-panel"><h2>Quels documents souhaitez-vous ?</h2><p>Un clic ouvre Gmail dans un nouvel onglet, avec mon adresse et l’objet de votre demande déjà renseignés.</p><div class="actions">{['CV', 'Portfolio', 'CV + Portfolio'].map(document => <a class="button dark" href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent('Demande : ' + document)}`} target="_blank" rel="noopener noreferrer">{document} ↗</a>)}</div><p style="margin-top:24px">Vous préférez échanger sur WhatsApp ?</p><a class="button outline" href="https://wa.me/261329659478" target="_blank" rel="noopener noreferrer">Discuter sur WhatsApp ↗<span class="sr-only"> — nouvel onglet</span></a></div>
   </div></section>
 </Layout>
