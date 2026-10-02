@@ -1,21 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { email, services } from '../data/site';
+import { email } from '../data/site';
 ---
-<Layout title="Contact — Parlons de votre projet"><section class="page-hero"><div class="container"><p class="eyebrow">Travaillons ensemble</p><h1>Une idée, un besoin,<br />une évolution ?</h1><p>Parlons de votre projet et de la façon dont je peux vous accompagner.</p></div></section><section class="section"><div class="container split"><div><p class="eyebrow">Faisons connaissance</p><h2>Tout commence par<br />une conversation.</h2><p>Présentez-moi votre activité, vos objectifs et ce dont vous avez besoin. Quelques lignes suffisent pour commencer.</p><a class="text-link email-link" href={`mailto:${email}`}>{email} ↗</a><p style="margin-top:25px">Projets en français et en anglais.<br />Collaboration à distance.</p><div class="contact-panel" style="margin-top:35px"><h2>Mon CV ou mon portfolio ?</h2><p>Écrivez-moi pour recevoir les documents et échanger sur votre besoin.</p><a class="text-link" href="/demande-cv-portfolio/">Demander les documents ↗</a></div></div><form class="contact-form" id="contact-form" data-email={email}><label>Votre nom<input name="name" autocomplete="name" required maxlength="100" placeholder="Comment vous appelez-vous ?" /></label><label>Votre adresse e-mail<input name="email" type="email" autocomplete="email" required maxlength="254" placeholder="vous@entreprise.com" /></label><label>Votre besoin<select name="service"><option value="Un projet digital">Choisir une prestation</option>{services.map(([title]) => <option value={title}>{title}</option>)}<option value="Autres projets">Autres projets</option></select></label><label>Votre projet<textarea name="message" required minlength="10" maxlength="4000" placeholder="Vos objectifs, vos idées, votre calendrier…"></textarea></label><button class="button dark" type="submit">Préparer mon e-mail ↗</button><p class="form-note">Ce formulaire ouvre votre application de messagerie avec un brouillon. Vous pourrez le relire avant de l’envoyer. Vous pouvez aussi utiliser l’adresse e-mail ci-contre.</p><p id="contact-status" class="form-note" role="status"></p></form></div></section></Layout>
-<script>
-  const form = document.querySelector<HTMLFormElement>('#contact-form');
-  const select = form?.querySelector<HTMLSelectElement>('select');
-  const service = new URLSearchParams(location.search).get('service');
-  if (select && service && [...select.options].some(option => option.value === service)) select.value = service;
-  form?.addEventListener('submit', event => {
-    event.preventDefault();
-    if (!form.reportValidity()) return;
-    const data = new FormData(form);
-    const subject = `Projet : ${data.get('service')}`;
-    const body = `Bonjour Faratiana,\n\n${data.get('message')}\n\n${data.get('name')}\n${data.get('email')}`;
-    location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    const status = document.querySelector('#contact-status');
-    if (status) status.textContent = 'Le brouillon a été préparé pour votre messagerie. Si elle ne s’ouvre pas, écrivez directement à l’adresse indiquée.';
-  });
-</script>
+<Layout title="Contact — Parlons de votre projet"><section class="page-hero"><div class="container"><p class="eyebrow">Travaillons ensemble</p><h1>Une idée, un besoin,<br />une évolution ?</h1><p>Parlons de votre projet et de la façon dont je peux vous accompagner.</p></div></section><section class="section"><div class="container split"><div><p class="eyebrow">Faisons connaissance</p><h2>Tout commence par<br />une conversation.</h2><p>Présentez-moi votre activité, vos objectifs et ce dont vous avez besoin. Quelques lignes suffisent pour commencer.</p><a class="text-link email-link" href={`mailto:${email}`}>{email} ↗</a><p style="margin-top:25px">Projets en français et en anglais.<br />Collaboration à distance.</p><div class="contact-panel" style="margin-top:35px"><h2>Mon CV ou mon portfolio ?</h2><p>Écrivez-moi pour recevoir les documents et échanger sur votre besoin.</p><a class="text-link" href="/demande-cv-portfolio/">Demander les documents ↗</a></div></div><div class="contact-panel"><h2>Parlons de votre projet.</h2><p>Choisissez le moyen de contact qui vous convient.</p><div class="actions"><a class="button dark" href={`mailto:${email}`}>M’écrire par e-mail ↗</a><a class="button outline" href="https://wa.me/261329659478" target="_blank" rel="noopener noreferrer">Discuter sur WhatsApp ↗<span class="sr-only"> — nouvel onglet</span></a></div></div></div></section></Layout>
